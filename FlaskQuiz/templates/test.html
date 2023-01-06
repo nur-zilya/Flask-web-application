@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <body>
+        <div>
+            <div class="modal-body row">
+                <div class="col-md-6">
+                     <!-- Your first column here -->
+                <br>
+                <form action="/quiz" method="post">
+                    {% for question in data%}
+                    {%if question.type == "single" %}
+                    <legend>{{question.question}}</legend>
+                    {% for answer in question.answers %}
+                    <input type="radio" id="{{ answer }}" name="{{ question.id }}" value="{{ answer }}"> {{ answer }}<br>
+                    {% endfor %}
+                    {%else%}
+                    <fieldset>
+                      <legend>{{question.question}}</legend>
+                      {%for answer in question.answers%}
+                      <label><input type="checkbox" id="id" name="{{question.id}}" value="{{answer}}" /> {{answer}}</label> <br>
+                      {%endfor%}
+                    </fieldset>
+                    <br>
+                    {%endif%}
+                    {%endfor%}
+
+                    <input type="submit" value="Submit" name="Submit"/>
+                </form>
+                </div>
+                <div class="col-md-6">
+                    <!-- Your second column here -->
+                    {%set pathpdf = '../static/A1_demo.pdf' %}
+                    <embed src="{{pathpdf}}" style="width:110vh;height:110vh;">
+                </div>
+            </div>
+
+    </body>
+
+{% endblock %}
